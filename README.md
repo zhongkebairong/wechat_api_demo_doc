@@ -448,12 +448,12 @@ POS在提交支付后，用户实际享受的优惠金额，实际收款金额 =
 
 ```
 {
-"appId":"wx558d04eeb1b188a9",
-"timeStamp":"1514896093",
-"nonceStr":"5a4b7add55c97",
-"package":"prepay_id=wx2018010220281314650d793d0465718660",
-"signType":"MD5",
-"paySign":"B72BC7DFFA0722F896276711EC066B1A"
+  "appId":"wx558d04eeb1b188a9",
+  "timeStamp":"1514896093",
+  "nonceStr":"5a4b7add55c97",
+  "package":"prepay_id=wx2018010220281314650d793d0465718660",
+  "signType":"MD5",
+  "paySign":"B72BC7DFFA0722F896276711EC066B1A"
 }
 
 ```
