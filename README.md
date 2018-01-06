@@ -61,17 +61,12 @@ anna@bryzf.com
 	
 	假设传送的参数如下：
 
-
-	appid：	wxd930ea5d5a258f4f
-
-	mch_id：	10000100
-
+	appid：	        wxd930ea5d5a258f4f
+	mch_id：        10000100
 	device_info：	1000
-
-	body：	test
-
+	body：	        test
 	nonce_str：	ibuaiVcKdpRxkhJA
-
+	
 ​	
 	第一步：对参数按照key=value的格式，并按照参数名ASCII字典序排序如下：
 	 stringA="appid=wxd930ea5d5a258f4f&body=test&device_info=1000&mch_id=10000100&nonce_str=ibuaiVcKdpRxkhJA";
@@ -252,13 +247,12 @@ POS在提交支付后，用户实际享受的优惠金额，实际收款金额 =
 
 ```
 <xml>
- 	<appid>wx2421b1c4370ec43b</appid>
+   <appid>wx2421b1c4370ec43b</appid>
    <attach>订单额外描述</attach>
    <auth_code>120269300684844649</auth_code>
    <body>望京凯德MALL</body>
    <device_info>08004</device_info>
    <detail>{"cost_price": 608800,"receipt_id": "wx123","goods_detail": [{"goods_id": "商品编码","goods_name": "","quantity": 1,"price": 528800},{"goods_id": "商品编码","goods_name": "iPhone6s 32G","quantity": 1,"price": 608800}]}</detail>
-  
    <mch_id>10000100</mch_id>
    <nonce_str>8aaee146b1dee7cec9100add9b96cbe2</nonce_str>
    <out_trade_no>1415757673201708020800488654</out_trade_no>
@@ -401,13 +395,13 @@ POS在提交支付后，用户实际享受的优惠金额，实际收款金额 =
 
 ```
 <xml>
- 	<appid>wx2421b1c4370ec43b</appid>
+   <appid>wx2421b1c4370ec43b</appid>
    <attach>订单额外描述</attach>
    <body>望京凯德MALL</body>
    <mch_id>10000100</mch_id>
    <device_info>08004</device_info>
    <detail>{"cost_price": 608800,"receipt_id": "wx123","goods_detail": [{"goods_id": "商品编码","goods_name": "","quantity": 1,"price": 528800},{"goods_id": "商品编码","goods_name": "iPhone6s 32G","quantity": 1,"price": 608800}]}</detail>
-  	<notify_url>http://wxpay.wxutil.com/pub_v2/pay/notify.v2.php</notify_url>
+   <notify_url>http://wxpay.wxutil.com/pub_v2/pay/notify.v2.php</notify_url>
    <openid>oUpF8uMuAJO_M2pxb1Q9zNjWeS6o</openid>
    <nonce_str>8aaee146b1dee7cec9100add9b96cbe2</nonce_str>
    <out_trade_no>1415757673201708020800488654</out_trade_no>
@@ -537,7 +531,7 @@ POS在提交支付后，用户实际享受的优惠金额，实际收款金额 =
 
 ```
 <xml>
-	<appid>wx2421b1c4370ec43b</appid>
+   <appid>wx2421b1c4370ec43b</appid>
    <mch_id>10000100</mch_id>
    <nonce_str>ec2316275641faa3aacf3cc599e8730f</nonce_str>
    <transaction_id>1008450740201411110005820873</transaction_id>
@@ -654,7 +648,7 @@ POS在提交支付后，用户实际享受的优惠金额，实际收款金额 =
 
 ```
 <xml>
- 	<appid><![CDATA[wx2421b1c4370ec43b]]></appid>
+   <appid><![CDATA[wx2421b1c4370ec43b]]></appid>
    <mch_id>10000100</mch_id>
    <nonce_str>b7ffb16a7150cf08639db472c5f5bdae</nonce_str>
    <out_trade_no>1415717424</out_trade_no>
@@ -754,7 +748,7 @@ POS在提交支付后，用户实际享受的优惠金额，实际收款金额 =
 
 ```
 <xml>
- 	<appid>wx2421b1c4370ec43b</appid>
+   <appid>wx2421b1c4370ec43b</appid>
    <mch_id>10000100</mch_id>
    <nonce_str>6cefdb308e1e2e8aabd48cf79e546a02</nonce_str>
    <out_refund_no>1415701182</out_refund_no>
@@ -873,7 +867,7 @@ POS在提交支付后，用户实际享受的优惠金额，实际收款金额 =
 
 ```
 <xml>
-	<appid>wx2421b1c4370ec43b</appid>
+   <appid>wx2421b1c4370ec43b</appid>
    <mch_id>10000100</mch_id>
    <nonce_str>0b9f35f484df17a732e537c37708d1d0</nonce_str>
    <out_refund_no></out_refund_no>
@@ -989,7 +983,7 @@ POS在提交支付后，用户实际享受的优惠金额，实际收款金额 =
 
 ```
 <xml>
- 	<appid><![CDATA[wx2421b1c4370ec43b]]></appid>
+   <appid><![CDATA[wx2421b1c4370ec43b]]></appid>
    <mch_id>10000100</mch_id>
    <nonce_str>b7ffb16a7150cf08639db472c5f5bdae</nonce_str>
    <out_trade_no>1415717424</out_trade_no>
@@ -1217,11 +1211,11 @@ POS在提交支付后，用户实际享受的优惠金额，实际收款金额 =
   <sub_mch_id><![CDATA[10000100]]></sub_mch_id>
   <time_end><![CDATA[20140903131540]]></time_end>
   <total_fee>1</total_fee>
-<coupon_fee><![CDATA[10]]></coupon_fee>
-<coupon_count><![CDATA[1]]></coupon_count>
-<coupon_type><![CDATA[CASH]]></coupon_type>
-<coupon_id><![CDATA[10000]]></coupon_id>
-<coupon_fee><![CDATA[100]]></coupon_fee>
+  <coupon_fee><![CDATA[10]]></coupon_fee>
+  <coupon_count><![CDATA[1]]></coupon_count>
+  <coupon_type><![CDATA[CASH]]></coupon_type>
+  <coupon_id><![CDATA[10000]]></coupon_id>
+  <coupon_fee><![CDATA[100]]></coupon_fee>
   <trade_type><![CDATA[JSAPI]]></trade_type>
   <transaction_id><![CDATA[1004400740201409030005092168]]></transaction_id>
 </xml>
