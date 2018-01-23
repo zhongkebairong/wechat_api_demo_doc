@@ -33,15 +33,17 @@ $result = $instance->downloadbill();
 //$result = $instance->micropay();
 //10.统一下单测试
 /**
-$isunifiedorder=true;
-$result = $instance->unifiedorder();
-$result = XML::parse($result);
-if ($result['return_code'] == 'SUCCESS' && $result['result_code'] == 'SUCCESS') {
-    $json = $result['prepare_pay_json'];
-}else{
-    $isunifiedorder=false;
-}
+ * $isunifiedorder=true;
+ * $result = $instance->unifiedorder();
+ * $result = XML::parse($result);
+ * if ($result['return_code'] == 'SUCCESS' && $result['result_code'] == 'SUCCESS') {
+ * $json = $result['prepare_pay_json'];
+ * }else{
+ * $isunifiedorder=false;
+ * }
  * */
+//11.订单查询测试
+//$result = $instance->orderquery();
 //-----------------打印测试结果----------------
 if (!$isunifiedorder) {
     echo "佰融服务器返回的响应结果:</br>";
@@ -54,9 +56,7 @@ if (!$isunifiedorder) {
     }
     return;
 }
-
 //-----------------------------------------------------------------以下是配置测试数据的   请自己修改对应的参数值------------------------------------------------------------------------
-
 /**
  * 微信测试用例
  * Created by PhpStorm.
@@ -127,6 +127,18 @@ class WxTest
     }
 
     /**
+     * 订单查询测试  通过
+     */
+    public function orderquery()
+    {
+        $data = [
+            'out_trade_no' => "JSAPI136804930220180103154639",
+            // 'transaction_id'=>''
+        ];
+        return CommonTool::request(WxApiConfig::getConfig('api.queryorder'), $data);
+    }
+
+    /**
      * 退款订单测试  通过
      */
     public function refund()
@@ -179,12 +191,40 @@ class WxTest
     }
 
     /**
+     * 获取模拟的商品信息
+     *
+     * @return string 商品信息 json格式
+     */
+    private function get_good_list()
+    {
+        $goods_list = array();
+        $goods_list['cost_price'] = 1002;
+        $goods_list['receipt_id'] = "wx123";
+        $goods_list['goods_detail'] = [];
+        $good1 = array();
+        $good1['goods_id'] = "78";
+        $good1['goods_name'] = "牛肉面";
+        $good1['quantity'] = 1;
+        $good1['price'] = 1000;
+        $good2 = array();
+        $good2['goods_id'] = "商品编码2";
+        $good2['goods_name'] = "商品2";
+        $good2['quantity'] = 2;
+        $good2['price'] = 1;
+        $goods_list['goods_detail'][] = $good1;
+        $goods_list['goods_detail'][] = $good2;
+        return CommonTool::json_encode($goods_list);
+    }
+
+    //---------------------------通知类----------------------
+
+    /**
      * 统一下单测试  需要授权
      */
     public function unifiedorder()
     {
         $post_string = array();
-        $post_string['openid'] = CommonTool::GetOpenid();
+        $post_string['openid'] = CommonTool::GetOpenid();//或者通过授权码查询得到openid
         $post_string['trade_type'] = 'JSAPI';
         $post_string['device_info'] = '7777';
         $post_string['body'] = "商品信息";
@@ -210,8 +250,6 @@ class WxTest
          * */
     }
 
-    //---------------------------通知类----------------------
-
     /**
      * 支付结果通知回应方法
      */
@@ -223,33 +261,7 @@ class WxTest
                 <return_msg><![CDATA[" . $content . "]]></return_msg>
             </xml>";
     }
-
-    /**
-     * 获取模拟的商品信息
-     * @return string 商品信息 json格式
-     */
-    private function get_good_list()
-    {
-        $goods_list = array();
-        $goods_list['cost_price'] = 1002;
-        $goods_list['receipt_id'] = "wx123";
-        $goods_list['goods_detail'] = [];
-        $good1 = array();
-        $good1['goods_id'] = "78";
-        $good1['goods_name'] = "牛肉面";
-        $good1['quantity'] = 1;
-        $good1['price'] = 1000;
-        $good2 = array();
-        $good2['goods_id'] = "商品编码2";
-        $good2['goods_name'] = "商品2";
-        $good2['quantity'] = 2;
-        $good2['price'] = 1;
-        $goods_list['goods_detail'][] = $good1;
-        $goods_list['goods_detail'][] = $good2;
-        return CommonTool::json_encode($goods_list);
-    }
 }
-
 //-----------------------------------------------------------统一下单网页测试------------------------------------------
 if ($isunifiedorder) {
     ?>
@@ -271,10 +283,10 @@ if ($isunifiedorder) {
                         }
                         alert(description);
                         WeixinJSBridge.log(res.err_msg);
-                <!--alert(res.code+res.err_desc+res.err_msg);-->
-            }
-            )
-            ;
+                        <!--alert(res.code+res.err_desc+res.err_msg);-->
+                    }
+                )
+                ;
             }
             function callpay() {
                 if (typeof WeixinJSBridge == "undefined") {
