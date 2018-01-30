@@ -224,12 +224,13 @@ class WxTest
     public function unifiedorder()
     {
         $post_string = array();
-        $post_string['openid'] = CommonTool::GetOpenid();//或者通过授权码查询得到openid
-        $post_string['trade_type'] = 'JSAPI';
+        $post_string['openid'] = CommonTool::GetOpenid();//或者通过授权码查询得到openid    当非JSAPI模式可省略
+        $post_string['trade_type'] = 'JSAPI';//NATIVE、JSAPI、APP
         $post_string['device_info'] = '7777';
         $post_string['body'] = "商品信息";
         $post_string['detail'] = $this->get_good_list();
-        $post_string['out_trade_no'] = 'JSAPI' . $post_string['mch_id'] . date('YmdHis');
+        $post_string['out_trade_no'] = 'JSAPI' . WxApiConfig::getConfig('wx.mch_id') . date('YmdHis');
+        //$post_string['product_id'] = CommonTool::getNonceStr();扫码支付 当NATIVE时必填
         $post_string['total_fee'] = 1;
         $post_string['goods_tag'] = "1234";
         $post_string['limit_pay'] = "no_credit";
