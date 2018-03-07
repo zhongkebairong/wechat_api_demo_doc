@@ -1,9 +1,8 @@
 <?php
-
 namespace wxapi\lib\config;
 
 //版本号  标识库版本
-define("VERSION", "1.0");
+define("VERSION", "1.0.1");
 //基础网址 请自己补全   *
 define("BASE_HOST", "http://xxx.bryzf.com");
 /**

@@ -1,6 +1,7 @@
 <?php
 require "lib/CommonTool.php";
 require_once "lib/config/WxApiConfig.php";
+
 use wxapi\lib\CommonTool;
 use wxapi\lib\config\WxApiConfig;
 use wxapi\lib\XML;
@@ -14,13 +15,13 @@ $isunifiedorder = false;//是否是统一下单
 $instance = new WxTest();
 //-------运行测试其中某一个用例----
 //1.刷卡支付交易保障测试
-//$result = $instance->report();
+$result = $instance->report();
 //2.不是刷卡支付交易保障测试
 //$result = $instance->report2();
 //3.授权码查询测试
 //$result = $instance->authcodetoopenid();
 //4.下载对账单测试
-$result = $instance->downloadbill();
+//$result = $instance->downloadbill();
 //5.关闭订单测试
 //$result = $instance->closeorder();
 //6.退款测试
@@ -46,13 +47,17 @@ $result = $instance->downloadbill();
 //$result = $instance->orderquery();
 //-----------------打印测试结果----------------
 if (!$isunifiedorder) {
-    echo "佰融服务器返回的响应结果:</br>";
+    echo '</br><h1>1.佰融服务器返回的响应结果:</h1>';
     CommonTool::dump_to_html($result);
     try {
         $array_result = XML::parse($result);
-        echo "</br>解析成数组打印：</br>";
+        echo " '</br><h1>2.解析成数组打印：</h1>";
         CommonTool::dump_to_html($array_result);
     } catch (\Exception $e) {
+    }
+    if (is_string($result)) {
+        echo '</br><h1>3.输出原始结果</h1>';
+        echo $result;
     }
     return;
 }
@@ -98,7 +103,7 @@ class WxTest
     public function authcodetoopenid()
     {
         $data = [
-            'auth_code' => "33242",//授权码
+            'auth_code' => "--请自定义授权码--",//授权码
         ];
         return CommonTool::request(WxApiConfig::getConfig('api.authcodetoopenid'), $data);
     }
@@ -109,7 +114,7 @@ class WxTest
     public function downloadbill()
     {
         $data = [
-            'bill_date' => "20180102",
+            'bill_date' => '--请自定义账单时间--',//格式： "20180102",
             'bill_type' => "ALL"
         ];
         return CommonTool::request(WxApiConfig::getConfig('api.downloadbill'), $data);
@@ -121,7 +126,7 @@ class WxTest
     public function closeorder()
     {
         $data = [
-            'out_trade_no' => "JSAPI136804930220180103154633",
+            'out_trade_no' => "--请自定义订单号--",
         ];
         return CommonTool::request(WxApiConfig::getConfig('api.closeorder'), $data);
     }
@@ -132,7 +137,7 @@ class WxTest
     public function orderquery()
     {
         $data = [
-            'out_trade_no' => "JSAPI136804930220180103154639",
+            'out_trade_no' => "--请自定义订单号--",
             // 'transaction_id'=>''
         ];
         return CommonTool::request(WxApiConfig::getConfig('api.queryorder'), $data);
@@ -144,10 +149,11 @@ class WxTest
     public function refund()
     {
         $data = [
-            'out_trade_no' => "JSAPI136804930220180103154633",
+            'out_trade_no' => "--请自定义订单号--",
             'total_fee' => 1,
             'refund_fee' => 1,
-            'out_refund_no' => '4200000017201801048047228344'
+            //--请自定义退款订单号--
+            'out_refund_no' => CommonTool::getNonceStr()
         ];
         return CommonTool::request(WxApiConfig::getConfig('api.refund'), $data);
     }
@@ -158,7 +164,7 @@ class WxTest
     public function refundquery()
     {
         $data = [
-            'out_trade_no' => "JSAPI136804930220180103154633",
+            'out_trade_no' => "--请自定义订单号--",
         ];
         return CommonTool::request(WxApiConfig::getConfig('api.refundquery'), $data);
     }
@@ -169,7 +175,7 @@ class WxTest
     public function reverse()
     {
         $data = [
-            'out_trade_no' => "JSAPI136804930220180103154633",
+            'out_trade_no' => "--请自定义订单号--",
         ];
         return CommonTool::request(WxApiConfig::getConfig('api.reverse'), $data);
     }
@@ -181,10 +187,10 @@ class WxTest
     {
         $data = [
             'device_info' => "7777",
-            'out_trade_no' => "JSAPI136804930220180103154635",
+            'out_trade_no' => "--请自定义订单号--",
             'body' => "测试刷卡支付",
             'total_fee' => 1,
-            'auth_code' => "134615930132188192",
+            'auth_code' => "--请自定义授权码--",
             'detail' => $this->get_good_list()
         ];
         return CommonTool::request(WxApiConfig::getConfig('api.micropay'), $data);
@@ -229,6 +235,7 @@ class WxTest
         $post_string['device_info'] = '7777';
         $post_string['body'] = "商品信息";
         $post_string['detail'] = $this->get_good_list();
+        //--请自定义订单号--
         $post_string['out_trade_no'] = 'JSAPI' . WxApiConfig::getConfig('wx.mch_id') . date('YmdHis');
         //$post_string['product_id'] = CommonTool::getNonceStr();扫码支付 当NATIVE时必填
         $post_string['total_fee'] = 1;
@@ -239,16 +246,6 @@ class WxTest
         $post_string['notify_url'] = WxApiConfig::getConfig("wx.notify_url");
         $result = CommonTool::request(WxApiConfig::getConfig('api.unifiedorder'), $post_string);
         return $result;
-        /**
-         * $result = XML::parse($json);
-         * dump($result);
-         * if ($result['return_code'] == 'SUCCESS' && $result['result_code'] == 'SUCCESS') {
-         * $json = $result['prepare_pay_json'];
-         * $this->assign('order_info', $post_string);
-         * $this->assign('json', $json);
-         * return view();
-         * }
-         * */
     }
 
     /**
@@ -286,9 +283,9 @@ if ($isunifiedorder) {
                         WeixinJSBridge.log(res.err_msg);
                         <!--alert(res.code+res.err_desc+res.err_msg);-->
                     }
-                )
-                ;
+                );
             }
+
             function callpay() {
                 if (typeof WeixinJSBridge == "undefined") {
                     if (document.addEventListener) {
@@ -301,20 +298,6 @@ if ($isunifiedorder) {
                     jsApiCall();
                 }
             }
-        </script>
-        <script type="text/javascript">
-            window.onload = function () {
-                if (typeof WeixinJSBridge == "undefined") {
-                    if (document.addEventListener) {
-                        document.addEventListener('WeixinJSBridgeReady', editAddress, false);
-                    } else if (document.attachEvent) {
-                        document.attachEvent('WeixinJSBridgeReady', editAddress);
-                        document.attachEvent('onWeixinJSBridgeReady', editAddress);
-                    }
-                } else {
-                    editAddress();
-                }
-            };
         </script>
     </head>
     <body onload="callpay()">
