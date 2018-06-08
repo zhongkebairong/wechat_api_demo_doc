@@ -1353,7 +1353,7 @@ GET
 4.其他其他限制吗？------单个用户可领取红包上线为10个/天，如有需要，可前往商户平台进行设置和申请
 
 
-**接口地址**：`http://guoran.bryzf.com/sendredpack`
+**接口地址**：`http://xxx.bryzf.com/sendredpack`
 
 **是否需要证书**: 
 是
