@@ -1518,12 +1518,12 @@ GET
 |NOTENOUGH|帐号余额不足，请到商户平台充值后再重试|账户余额不足|充值后重试
 |OPENID_ERROR|openid和appid不匹配|openid和appid不匹配|发红包的openid必须是本appid下的openid
 |PROCESSING|请求已受理，请稍后使用原单号查询发放结果|红包正在发放中|请在红包发放二十分钟后查询,按照查询结果成功失败进行处理，如果依然是PROCESSING的状态，请使用原商户订单号重试
-|PARAM_ERROR|act_name字段必填,并且少于32个字符|请求的act_name字段填写错误|填写正确的act_name后重试
-||发放金额、最小金额、最大金额必须相等|请求的金额相关字段填写错误|按文档要求填写正确的金额后重试
-||红包金额参数错误|红包金额过大|修改金额重试
-||appid字段必填,最长为32个字符|请求的appid字段填写错误|填写正确的appid后重试
-||商户号和wxappid不匹配|商户号和wxappid不匹配|请修改Mchid或wxappid参数
-||re_openid字段为必填并且少于32个字符|请求的re_openid字段非法|填写对re_openid后重试
+|PARAM_ERROR|act_name字段必填,并且少于32个字符|请求的act_name字段填写错误|填写正确的act_name后重试|
+|发放金额、最小金额、最大金额必须相等|请求的金额相关字段填写错误|按文档要求填写正确的金额后重试|
+|红包金额参数错误|红包金额过大|修改金额重试|
+|appid字段必填,最长为32个字符|请求的appid字段填写错误|填写正确的appid后重试|
+|商户号和wxappid不匹配|商户号和wxappid不匹配|请修改Mchid或wxappid参数|
+|re_openid字段为必填并且少于32个字符|请求的re_openid字段非法|填写对re_openid后重试|
 
 
 
